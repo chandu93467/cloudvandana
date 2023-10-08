@@ -1,0 +1,416 @@
+java
+1.import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ShuffleArray {
+    public static void main(String[] args) {
+        // Create the original list
+        List<Integer> originalList = new ArrayList<>();
+        originalList.add(1);
+        originalList.add(2);
+        originalList.add(3);
+        originalList.add(4);
+        originalList.add(5);
+        originalList.add(6);
+        originalList.add(7);
+
+        // Shuffle the list
+        Collections.shuffle(originalList);
+
+        // Convert the shuffled list back to an array if needed
+        Integer[] shuffledArray = originalList.toArray(new Integer[0]);
+
+        // Print the shuffled array
+        for (Integer value : shuffledArray) {
+            System.out.print(value + " ");
+        }
+    }
+}
+2.import java.util.HashMap;
+
+public class RomanToInteger {
+    public static int romanToInt(String s) {
+        // Create a HashMap to store the Roman numeral symbols and their corresponding values
+        HashMap<Character, Integer> romanValues = new HashMap<>();
+        romanValues.put('I', 1);
+        romanValues.put('V', 5);
+        romanValues.put('X', 10);
+        romanValues.put('L', 50);
+        romanValues.put('C', 100);
+        romanValues.put('D', 500);
+        romanValues.put('M', 1000);
+
+        int result = 0;
+        int prevValue = 0;
+
+        // Iterate through the Roman numeral string in reverse order
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char currentSymbol = s.charAt(i);
+            int currentValue = romanValues.get(currentSymbol);
+
+            // If the current value is less than the previous value, subtract it; otherwise, add it
+            if (currentValue < prevValue) {
+                result -= currentValue;
+            } else {
+                result += currentValue;
+            }
+
+            prevValue = currentValue;
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        String romanNumeral = "IX";
+        int intValue = romanToInt(romanNumeral);
+        System.out.println(romanNumeral + " = " + intValue);
+    }
+}
+3.public class PangramChecker {
+    public static boolean isPangram(String input) {
+        // Create an array to track the presence of each letter from 'a' to 'z'
+        boolean[] alphabet = new boolean[26];
+        
+        // Convert the input string to lowercase to handle both uppercase and lowercase letters
+        input = input.toLowerCase();
+        
+        // Iterate through the characters in the input string
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            
+            // Check if the character is a lowercase letter
+            if ('a' <= ch && ch <= 'z') {
+                // Mark the corresponding letter as encountered
+                alphabet[ch - 'a'] = true;
+            }
+        }
+        
+        // Check if all letters have been encountered
+        for (boolean letter : alphabet) {
+            if (!letter) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        String input = "The quick brown fox jumps over the lazy dog";
+        boolean isPangram = isPangram(input);
+        
+        if (isPangram) {
+            System.out.println("The input is a pangram.");
+        } else {
+            System.out.println("The input is not a pangram.");
+        }
+    }
+}
+javascript
+1.function reverseWords(sentence) {
+    // Split the sentence into words using space as a delimiter
+    const words = sentence.split(" ");
+    
+    // Initialize an array to store reversed words
+    const reversedWords = [];
+    
+    // Iterate through the words
+    for (const word of words) {
+        // Reverse each word and push it to the reversedWords array
+        const reversedWord = word.split("").reverse().join("");
+        reversedWords.push(reversedWord);
+    }
+    
+    // Join the reversed words to form the reversed sentence
+    const reversedSentence = reversedWords.join(" ");
+    
+    return reversedSentence;
+}
+
+// Example usage
+const inputSentence = "This is a sunny day";
+const reversedSentence = reverseWords(inputSentence);
+console.log("Reversed sentence: " + reversedSentence);
+2.const array = [5, 2, 9, 1, 5, 6];
+
+// Sort the array in descending order
+array.sort((a, b) => b - a);
+
+console.log("Array sorted in descending order:", array);
+html
+1.<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            height: 40px;
+            font-size: 18px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            height: 50px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+
+        button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="clearDisplay()">C</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions go here
+        let displayValue = '';
+
+        function appendToDisplay(value) {
+            displayValue += value;
+            document.getElementById('display').value = displayValue;
+        }
+
+        function clearDisplay() {
+            displayValue = '';
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
+            try {
+                const result = eval(displayValue);
+                displayValue = result.toString();
+                document.getElementById('display').value = result;
+            } catch (error) {
+                displayValue = 'Error';
+                document.getElementById('display').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
+2.<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            margin-top: 5px;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button[type="reset"] {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Survey Form</h2>
+        <form id="survey-form">
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="">Select Country</option>
+                    <!-- Add country options here -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="checkbox-group">
+                    <label for="male"><input type="checkbox" id="male" name="gender" value="Male"> Male</label>
+                    <label for="female"><input type="checkbox" id="female" name="gender" value="Female"> Female</label>
+                    <label for="other"><input type="checkbox" id="other" name="gender" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" name="profession" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" required>
+            </div>
+
+            <div class="button-group">
+                <button type="button" onclick="submitForm()">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript functions go here
+        function submitForm() {
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const dob = document.getElementById('dob').value;
+            const country = document.getElementById('country').value;
+            const genderInputs = document.getElementsByName('gender');
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+
+            if (
+                firstName === '' ||
+                lastName === '' ||
+                dob === '' ||
+                country === '' ||
+                !Array.from(genderInputs).some(input => input.checked) ||
+                profession === '' ||
+                email === '' ||
+                mobile === ''
+            ) {
+                alert('Please fill in all the required fields.');
+            } else {
+                const genderValues = Array.from(genderInputs)
+                    .filter(input => input.checked)
+                    .map(input => input.value)
+                    .join(', ');
+
+                const popupText = `
+                    First Name: ${firstName}
+                    Last Name: ${lastName}
+                    Date of Birth: ${dob}
+                    Country: ${country}
+                    Gender: ${genderValues}
+                    Profession: ${profession}
+                    Email: ${email}
+                    Mobile Number: ${mobile}
+                `;
+
+                alert(popupText);
+                document.getElementById('survey-form').reset();
+            }
+        }
+    </script>
+</body>
+</html>
