@@ -1,7 +1,7 @@
 java
 1.import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class ShuffleArray {
     public static void main(String[] args) {
@@ -15,8 +15,8 @@ public class ShuffleArray {
         originalList.add(6);
         originalList.add(7);
 
-        // Shuffle the list using the Fisher-Yates shuffle
-        fisherYatesShuffle(originalList);
+        // Shuffle the list
+        Collections.shuffle(originalList);
 
         // Convert the shuffled list back to an array if needed
         Integer[] shuffledArray = originalList.toArray(new Integer[0]);
@@ -26,57 +26,28 @@ public class ShuffleArray {
             System.out.print(value + " ");
         }
     }
-
-    public static void fisherYatesShuffle(List<Integer> list) {
-        Random rand = new Random();
-        int n = list.size();
-
-        for (int i = n - 1; i > 0; i--) {
-            int j = rand.nextInt(i + 1);
-
-            // Swap list[i] and list[j]
-            Integer temp = list.get(i);
-            list.set(i, list.get(j));
-            list.set(j, temp);
-        }
-    }
 }
+2.import java.util.HashMap;
 
 public class RomanToInteger {
     public static int romanToInt(String s) {
+        // Create a HashMap to store the Roman numeral symbols and their corresponding values
+        HashMap<Character, Integer> romanValues = new HashMap<>();
+        romanValues.put('I', 1);
+        romanValues.put('V', 5);
+        romanValues.put('X', 10);
+        romanValues.put('L', 50);
+        romanValues.put('C', 100);
+        romanValues.put('D', 500);
+        romanValues.put('M', 1000);
+
         int result = 0;
         int prevValue = 0;
 
         // Iterate through the Roman numeral string in reverse order
         for (int i = s.length() - 1; i >= 0; i--) {
             char currentSymbol = s.charAt(i);
-            int currentValue;
-
-            switch (currentSymbol) {
-                case 'I':
-                    currentValue = 1;
-                    break;
-                case 'V':
-                    currentValue = 5;
-                    break;
-                case 'X':
-                    currentValue = 10;
-                    break;
-                case 'L':
-                    currentValue = 50;
-                    break;
-                case 'C':
-                    currentValue = 100;
-                    break;
-                case 'D':
-                    currentValue = 500;
-                    break;
-                case 'M':
-                    currentValue = 1000;
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid Roman numeral: " + currentSymbol);
-            }
+            int currentValue = romanValues.get(currentSymbol);
 
             // If the current value is less than the previous value, subtract it; otherwise, add it
             if (currentValue < prevValue) {
@@ -98,34 +69,32 @@ public class RomanToInteger {
         System.out.println(romanNumeral + " = " + intValue);
     }
 }
-public class PangramChecker {
+3.public class PangramChecker {
     public static boolean isPangram(String input) {
-        // Create a boolean array to track the presence of each letter from 'a' to 'z'
+        // Create an array to track the presence of each letter from 'a' to 'z'
         boolean[] alphabet = new boolean[26];
-
+        
+        // Convert the input string to lowercase to handle both uppercase and lowercase letters
+        input = input.toLowerCase();
+        
         // Iterate through the characters in the input string
         for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i);
-
-            // Convert the character to lowercase to handle both uppercase and lowercase letters
-            if ('A' <= ch && ch <= 'Z') {
-                ch = (char) (ch - 'A' + 'a'); // Convert to lowercase
-            }
-
+            
             // Check if the character is a lowercase letter
             if ('a' <= ch && ch <= 'z') {
                 // Mark the corresponding letter as encountered
                 alphabet[ch - 'a'] = true;
             }
         }
-
+        
         // Check if all letters have been encountered
         for (boolean letter : alphabet) {
             if (!letter) {
                 return false;
             }
         }
-
+        
         return true;
     }
 
@@ -133,7 +102,7 @@ public class PangramChecker {
         // Example usage
         String input = "The quick brown fox jumps over the lazy dog";
         boolean isPangram = isPangram(input);
-
+        
         if (isPangram) {
             System.out.println("The input is a pangram.");
         } else {
@@ -143,24 +112,22 @@ public class PangramChecker {
 }
 javascript
 1.function reverseWords(sentence) {
-    const words = [];
-    let word = '';
-    for (let i = 0; i < sentence.length; i++) {
-        const char = sentence[i];
-        if (char === ' ') {
-            // If a space is encountered, add the word to the list of words
-            words.push(word);
-            word = '';
-        } else {
-            // Build the word character by character
-            word = char + word;
-        }
+    // Split the sentence into words using space as a delimiter
+    const words = sentence.split(" ");
+    
+    // Initialize an array to store reversed words
+    const reversedWords = [];
+    
+    // Iterate through the words
+    for (const word of words) {
+        // Reverse each word and push it to the reversedWords array
+        const reversedWord = word.split("").reverse().join("");
+        reversedWords.push(reversedWord);
     }
-    // Add the last word (or the only word if there are no spaces)
-    words.push(word);
-
-    const reversedSentence = words.join(' ');
-
+    
+    // Join the reversed words to form the reversed sentence
+    const reversedSentence = reversedWords.join(" ");
+    
     return reversedSentence;
 }
 
@@ -168,27 +135,12 @@ javascript
 const inputSentence = "This is a sunny day";
 const reversedSentence = reverseWords(inputSentence);
 console.log("Reversed sentence: " + reversedSentence);
-
 2.const array = [5, 2, 9, 1, 5, 6];
 
-// Sort the array in descending order using a custom sorting algorithm
-customSortDescending(array);
+// Sort the array in descending order
+array.sort((a, b) => b - a);
 
 console.log("Array sorted in descending order:", array);
-
-function customSortDescending(arr) {
-    for (let i = 0; i < arr.length - 1; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[i] < arr[j]) {
-                // Swap the elements if they are out of order
-                const temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-    }
-}
-
 html
 1.<!DOCTYPE html>
 <html lang="en">
@@ -259,6 +211,7 @@ html
             <button onclick="appendToDisplay('0')">0</button>
             <button onclick="appendToDisplay('.')">.</button>
             <button onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('/')">/</button>
             <button onclick="clearDisplay()">C</button>
         </div>
     </div>
@@ -266,8 +219,6 @@ html
     <script>
         // JavaScript functions go here
         let displayValue = '';
-        let operator = '';
-        let firstOperand = '';
 
         function appendToDisplay(value) {
             displayValue += value;
@@ -276,51 +227,19 @@ html
 
         function clearDisplay() {
             displayValue = '';
-            operator = '';
-            firstOperand = '';
             document.getElementById('display').value = '';
         }
 
         function calculateResult() {
-            if (operator && firstOperand && displayValue) {
-                const secondOperand = displayValue.substr(firstOperand.length + 1);
-                let result;
-                switch (operator) {
-                    case '+':
-                        result = parseFloat(firstOperand) + parseFloat(secondOperand);
-                        break;
-                    case '-':
-                        result = parseFloat(firstOperand) - parseFloat(secondOperand);
-                        break;
-                    case '*':
-                        result = parseFloat(firstOperand) * parseFloat(secondOperand);
-                        break;
-                    case '/':
-                        result = parseFloat(firstOperand) / parseFloat(secondOperand);
-                        break;
-                }
-                document.getElementById('display').value = result;
+            try {
+                const result = eval(displayValue);
                 displayValue = result.toString();
-                firstOperand = '';
-                operator = '';
+                document.getElementById('display').value = result;
+            } catch (error) {
+                displayValue = 'Error';
+                document.getElementById('display').value = 'Error';
             }
         }
-
-        document.querySelectorAll('.buttons button').forEach(button => {
-            button.addEventListener('click', () => {
-                const value = button.textContent;
-                if (value === '+' || value === '-' || value === '*' || value === '/') {
-                    if (!firstOperand) {
-                        firstOperand = displayValue;
-                        operator = value;
-                        displayValue += value;
-                        document.getElementById('display').value = displayValue;
-                    }
-                } else {
-                    appendToDisplay(value);
-                }
-            });
-        });
     </script>
 </body>
 </html>
@@ -443,7 +362,7 @@ html
 
             <div class="button-group">
                 <button type="button" onclick="submitForm()">Submit</button>
-                <button type="button" onclick="resetForm()">Reset</button>
+                <button type="reset">Reset</button>
             </div>
         </form>
     </div>
@@ -465,14 +384,17 @@ html
                 lastName === '' ||
                 dob === '' ||
                 country === '' ||
-                !isChecked(genderInputs) ||
+                !Array.from(genderInputs).some(input => input.checked) ||
                 profession === '' ||
                 email === '' ||
                 mobile === ''
             ) {
                 alert('Please fill in all the required fields.');
             } else {
-                const genderValues = getCheckedValues(genderInputs);
+                const genderValues = Array.from(genderInputs)
+                    .filter(input => input.checked)
+                    .map(input => input.value)
+                    .join(', ');
 
                 const popupText = `
                     First Name: ${firstName}
@@ -486,31 +408,8 @@ html
                 `;
 
                 alert(popupText);
-                resetForm();
+                document.getElementById('survey-form').reset();
             }
-        }
-
-        function isChecked(inputs) {
-            for (const input of inputs) {
-                if (input.checked) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function getCheckedValues(inputs) {
-            const values = [];
-            for (const input of inputs) {
-                if (input.checked) {
-                    values.push(input.value);
-                }
-            }
-            return values.join(', ');
-        }
-
-        function resetForm() {
-            document.getElementById('survey-form').reset();
         }
     </script>
 </body>
